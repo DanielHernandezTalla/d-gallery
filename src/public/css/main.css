@@ -1,0 +1,30 @@
+:root{
+    --dark-gray: #333;
+    --gray: #666;
+    --main-color: #EC9E42;
+    --white: #FFF;
+    --quicksand: 'Quicksand', sans-serif;
+    --varela: 'Varela Round', sans-serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+img{
+    width: 100%;
+}
+
+.btn{
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}

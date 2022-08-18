@@ -1,0 +1,38 @@
+include includes/head.pug
+body 
+
+    .container-auth 
+        h1(class="auth__h1 auth-desktop") D-Galery
+        .auth
+            //- Desktop authentication
+            div 
+                //- Header authentication
+                header.header-auth
+                    figure 
+                        img.header-auth__img(src="https://res.cloudinary.com/danielhdz/image/upload/v1660543641/D-Galery/user_ngfadw.png", alt="user logo")
+                        figcaption Welcome
+
+
+                main.main-auth
+                    
+                    //- Form authentication
+                    form.form-auth(action="/login" method="post") 
+                        .form-group 
+                            label.form-auth__label(for="email") EMAIL
+                            input.form-auth__input(type="email" name="email" placeholder="Type you email")
+                        .form-group 
+                            label.form-auth__label(for="password") PASSWORD
+                            input.form-auth__input(type="password" name="password" placeholder="Type you password")
+                        .form-group 
+                            if loginMessage.length > 0
+                                span.form-auth__error
+                                    i(class="fas fa-exclamation-circle")
+                                    = loginMessage
+                        .form-group 
+                            input.btn.form-auth__btn(type="submit" value="login")
+
+            a.auth-link(href="/signup") Create Account
+
+        .auth-welcome.auth-desktop
+            h2.auth-welcome__h2 Welcome Friend
+            p.auth-welcome__p To keep connected with us please login with your personal info. 

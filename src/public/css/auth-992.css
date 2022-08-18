@@ -1,0 +1,48 @@
+.auth-desktop{
+    display: block
+}
+
+.auth{
+    width: 100%;
+    height: 100%;
+}
+
+.container-auth{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 48px 1fr;
+}
+
+.auth__h1{
+    padding-left: 32px;
+    line-height: 48px;
+    color: var(--main-color)
+}
+
+.auth-welcome{
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    padding: 32px;
+    background-image: url(/icons/auth-background.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: grid;
+    align-content: center;
+    gap: 32px;
+    text-align: center;
+    color: var(--white);
+}
+
+.auth-welcome__h2{
+    font-size: 5.6rem;
+    font-weight: 300;
+}
+
+.auth-welcome__p{
+    max-width: 400px;
+    margin: 0 auto;
+    font-size: 2.4rem;
+    font-weight: 500;
+}

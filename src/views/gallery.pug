@@ -1,0 +1,41 @@
+include includes/head.pug
+body 
+
+    header.gallery-header
+        h1.galery__h1 Galery
+        p.galery__description 0 folders #{images.length} images
+
+    nav.navbar 
+        .navbar-container
+            a.navbar__a(href="/logout") 
+                <i class="fas fa-sign-out-alt"></i>
+                | Logout
+
+    main.gallery-main
+        //-  Nav authentication 
+        nav.gallery-nav 
+            form#gallery-nav-form.gallery-nav__search(action="") 
+                input#gallery-nav-input.gallery-nav__search-input(type="text" name="search")
+                <i class="fas fa-search"></i>
+            <i class="fas fa-ellipsis-v"></i>
+
+        section#gallery-drop-zone.gallery-images
+            //- .gallery-images-zone
+            each image in images
+                figure.gallery-image(data-id=image._id)
+                    div
+                        img(src=image.url alt='#{image.name}')
+                    div
+                        figcaption= image.name.substring(0, image.name.length - 37) 
+                        .gallery-image__description
+                            p= image.format
+                            p= image.size/1000 + ' kb'
+                            p= image.width + ' x ' + image.height
+
+    //- 
+        form(action="gallery" method="POST" enctype="multipart/form-data") 
+            //- input(type="text" name="name")
+            //- input(type="number" name="age")
+            input(type="file" name="file")
+            input(type="submit")
+    script(src="/js/gallery.js" type="module")

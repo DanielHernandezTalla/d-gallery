@@ -1,0 +1,66 @@
+include includes/head.pug
+body 
+
+    .container-auth 
+        
+        h1(class="auth__h1 auth-desktop") D-Galery
+        .auth
+            //- Desktop authentication
+            div 
+                //- Header authentication
+                header.header-auth
+                    figure 
+                        img.header-auth__img(src="https://res.cloudinary.com/danielhdz/image/upload/v1660543641/D-Galery/user_ngfadw.png", alt="user logo")
+                        figcaption Register
+
+
+                main.main-auth
+
+                    //- Form authentication
+                    form.form-auth(action="/signup" method="post") 
+                        .form-group 
+                            label.form-auth__label(for="name") NAME
+                            input.form-auth__input(type="text" name="name" placeholder="Type you name")
+                        .form-group 
+                            label.form-auth__label(for="email") EMAIL
+                            input.form-auth__input(type="email" name="email" placeholder="Type you email")
+                        .form-group 
+                            label.form-auth__label(for="password") PASSWORD
+                            input.form-auth__input(type="password" name="password" placeholder="Type you password")
+                        .form-group 
+                            label.form-auth__label(for="password") CONFIRM PASSWORD
+                            input.form-auth__input(type="password" name="confirmPassword" placeholder="Confirm password")
+                        .form-group 
+                            span.form-auth__error
+                                if signupMessage.length > 0
+                                    i(class="fas fa-exclamation-circle")
+                                    = signupMessage
+                        .form-group 
+                            input.btn.form-auth__btn(type="submit" value="register")
+
+            a.auth-link(href="/login") Login
+
+        .auth-welcome.auth-desktop
+            h2.auth-welcome__h2 Welcome Friend
+            p.auth-welcome__p To keep connected with us please login with your personal info. 
+    
+    script(src="/js/auth.js")
+
+//- 
+    doctype html
+    html(lang="en")
+        head
+            meta(charset="UTF-8")
+            meta(http-equiv="X-UA-Compatible", content="IE=edge")
+            meta(name="viewport", content="width=device-width, initial-scale=1.0")
+            title Signup
+        body 
+
+            if signupMessage.length > 0
+                p= signupMessage
+
+            form(action="/signup" method="post") 
+                input(type="text" name="name" placeholder="Escribe tu nombre")
+                input(type="email" name="email" placeholder="Escribe tu email")
+                input(type="password" name="password" placeholder="Escribe tu password")
+                input(type="submit" value="Signup")

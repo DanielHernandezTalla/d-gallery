@@ -1,0 +1,130 @@
+
+/* ================================================================= */
+/* Header gallery */
+/* ================================================================= */
+.gallery-header{
+    display: grid;
+    place-content : center;
+    height: 300px;
+}
+
+.galery__h1{
+    color: var(--main-color);
+    font-size: 5.6rem;
+    font-weight: lighter;
+    text-align: center; 
+}
+.galery__description{
+    font-size: 1.6rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--gray);
+}
+
+
+/* ================================================================= */
+/* Navbar gallery */
+/* ================================================================= */
+.navbar{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--main-color);
+}
+
+.navbar-container{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar__a{
+    color: var(--white);
+    font-size: 1.6rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.navbar__a:active{
+    transform: scale(1.1);
+}
+
+.navbar__a i{
+    padding-right: 8px;
+}
+
+/* ================================================================= */
+/* Main gallery */
+/* ================================================================= */
+.gallery-main{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-images{
+    min-height: calc(100vh - 400px);
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  
+    gap: 48px;
+    position: relative;
+    transition: all 0.3s ease;  
+}
+
+.gallery-images-selected{
+    border: 5px dashed var(--main-color);
+}
+
+.gallery-images-selected .gallery-image{
+    opacity: .2;
+}
+
+.gallery-image{
+    *height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: var(--gray);
+}
+
+.gallery-image>div:first-child{
+    flex-grow: 1;
+    display: grid;
+    place-content : center;
+}
+
+.gallery-image img{
+    object-fit: scale-down;
+    transition: .3s all ease;
+}
+
+.gallery-image img:hover{
+    transform: scale(1.1);
+}
+
+.gallery-image figcaption{
+    word-break: break-all;
+    padding-bottom: 4px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.gallery-image__description{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+@media (min-width:992px) {
+    .gallery-images{
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .gallery-image figcaption{
+        font-size: 1.4rem;
+    }
+}
