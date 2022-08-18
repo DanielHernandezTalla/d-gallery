@@ -11,7 +11,7 @@ async function progressUpload(item){
     formData.set('file', item)
 
     try{
-        let data = await fetch('http://localhost:3000/gallery',{
+        let data = await fetch('https://d-gallery-app.herokuapp.com/gallery',{
             method: 'POST',
             body: formData
         })
@@ -75,7 +75,7 @@ document.addEventListener('click', e=>{
 
         let api = new ApiFetch()
 
-        let url = `http://localhost:3000/gallery/${id}`
+        let url = `https://d-gallery-app.herokuapp.com/gallery/${id}`
 
         api.execute({
             url,
@@ -103,7 +103,7 @@ document.addEventListener('input', e=>{
 
 async function request(search) {
         
-    let url = `http://localhost:3000/gallery/search?search=${search}`
+    let url = `https://d-gallery-app.herokuapp.com/gallery/search?search=${search}`
     
     let api = new ApiFetch()
 
@@ -119,7 +119,7 @@ async function request(search) {
 function reloadData(){
     let api = new ApiFetch()
 
-    let url = `http://localhost:3000/gallery/api`
+    let url = `https://d-gallery-app.herokuapp.com/gallery/api`
 
     api.execute({
         url,
