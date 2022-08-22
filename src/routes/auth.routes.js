@@ -3,7 +3,9 @@ const router = express.Router();
 const passport = require('passport');
 
 router.get('/signup', (req, res) => {
-    res.render('signup')
+    res.render('signup',{
+        title: "Signup",
+    })
 })
 
 router.post('/signup', passport.authenticate('local-signup', {

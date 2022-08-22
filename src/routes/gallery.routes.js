@@ -54,7 +54,9 @@ router.get('/', async function (req, res) {
 
     // console.log(images)
 
-    res.render('gallery', {images})
+    res.render('gallery', {
+        title: "Galery",
+        images})
 })
 
 router.get('/api', async function (req, res) {

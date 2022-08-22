@@ -11,7 +11,7 @@ async function progressUpload(item){
     formData.set('file', item)
 
     try{
-        let data = await fetch('https://d-gallery-app.herokuapp.com/gallery',{
+        let data = await fetch('/gallery',{
             method: 'POST',
             body: formData
         })
@@ -59,7 +59,9 @@ dragZone.addEventListener('drop', e=>{
 // Get search
 // ===============================================
 document.addEventListener('submit', e=>{
-    e.preventDefault()
+
+    if(e.target.matches('.gallery-nav__search'))
+        e.preventDefault()
     // if(e.target.matches('#gallery-nav-form')){
 
     //     let search = e.target.search.value
@@ -69,13 +71,57 @@ document.addEventListener('submit', e=>{
 })
 
 document.addEventListener('click', e=>{
-    if(e.target.matches('.gallery-image') || e.target.matches('.gallery-image *')){
+
+    if(e.target.matches('#show-options') || e.target.matches('#show-options *')){
+        let text = document.querySelector('#show-options').querySelector('p')
+        const gallery = document.querySelectorAll('.gallery-image')
+
+        gallery.forEach(item => {
+            if(text.textContent === "Show")
+                item.querySelector('.gallery-image-options').classList.remove('d-none')
+            else
+                item.querySelector('.gallery-image-options').classList.add('d-none')
+        })
+
+        text.textContent = text.textContent ==="Show"? "Hide": "Show"
+    }
+
+    if(e.target.matches("#gallery-nav-btn") || e.target.matches("#gallery-nav-btn *")){
+        
+        const menu = document.getElementById('gallery-nav-menu-hide')
+
+        if(menu.classList.contains('d-none'))
+            menu.classList.remove('d-none')
+        else
+            menu.classList.add('d-none')
+
+        return
+    }else
+        document.getElementById('gallery-nav-menu-hide').classList.add('d-none')
+
+    if(!(e.target.matches('#form-upload-image') || e.target.matches('#form-upload-image *')))
+        document.getElementById('form-upload-image').classList.add('form-upload-none')
+
+    if(!(e.target.matches('#form-upload-folder') || e.target.matches('#form-upload-folder *')))
+        document.getElementById('form-upload-folder').classList.add('form-upload-none')
+
+    if(e.target.matches("#upload-image") || e.target.matches("#upload-image *")){
+        document.getElementById('form-upload-image').classList.remove('form-upload-none')
+        return
+    }
+
+    if(e.target.matches("#upload-folder") || e.target.matches("#upload-folder *")){
+        document.getElementById('form-upload-folder').classList.remove('form-upload-none')
+        return
+    }
+
+    if(e.target.matches('.delete-image')){
         let id = e.target.parentNode.parentNode.dataset.id
         console.log(id)
 
         let api = new ApiFetch()
 
-        let url = `https://d-gallery-app.herokuapp.com/gallery/${id}`
+        let url = `/gallery/${id}`
 
         api.execute({
             url,
@@ -85,6 +131,15 @@ document.addEventListener('click', e=>{
                 console.log(err)
             }
         })
+        return;
+    }
+
+    if(e.target.matches('.gallery-image') || e.target.matches('.gallery-image *')){
+        let img = e.target.parentNode.parentNode.querySelector('img')
+
+        if(img){
+            copy(img.src)
+        }
 
     }
 })
@@ -101,9 +156,12 @@ document.addEventListener('input', e=>{
     }
 })
 
+// ===============================================
+// Fetch funtions
+// ===============================================
 async function request(search) {
         
-    let url = `https://d-gallery-app.herokuapp.com/gallery/search?search=${search}`
+    let url = `/gallery/search?search=${search}`
     
     let api = new ApiFetch()
 
@@ -119,7 +177,7 @@ async function request(search) {
 function reloadData(){
     let api = new ApiFetch()
 
-    let url = `https://d-gallery-app.herokuapp.com/gallery/api`
+    let url = `/gallery/api`
 
     api.execute({
         url,
@@ -141,6 +199,10 @@ function loadImages(res){
         figure.dataset.id = item._id
 
         figure.innerHTML = `
+            <div class="gallery-image-options ">
+                <i class="fas fa-link"></i>
+                <i class="delete-image fas fa-trash"></i>
+            </div>
             <div>
                 <img src="${item.url}" alt="${item.name}">
             </div>
@@ -156,4 +218,30 @@ function loadImages(res){
         
         zone.appendChild(figure)
     })
+}
+
+function notification(value){
+    let notification = document.getElementById('notification')
+
+    notification.querySelector('p').textContent = value
+
+    notification.classList.add('notification-show')
+    
+    setTimeout(()=>{
+        notification.classList.remove('notification-show')
+    }, 1000)
+}
+
+function copy(value){
+
+    let input = document.createElement('input')
+
+    input.setAttribute("value", value);
+    document.body.appendChild(input)
+
+    input.select()
+    document.execCommand('copy');
+    document.body.removeChild(input)
+
+    notification("Copied")
 }

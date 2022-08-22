@@ -17,12 +17,32 @@ body
             form#gallery-nav-form.gallery-nav__search(action="") 
                 input#gallery-nav-input.gallery-nav__search-input(type="text" name="search")
                 <i class="fas fa-search"></i>
-            <i class="fas fa-ellipsis-v"></i>
+            ul.gallery-nav-ul
+                li.gallery-nav-button-menu
+                    button#gallery-nav-btn.btn.gallery-nav-btn
+                        i(class="fas fa-ellipsis-v")
+                //- p Upload New Upload New
+                li 
+                    ul#gallery-nav-menu-hide.gallery-nav-section-menu-hide.d-none
+                        li#upload-image
+                            i(class="fas fa-cloud-upload-alt") 
+                            p Upload 
+                        li#upload-folder
+                            i(class="fas fa-folder-plus")
+                            p New 
+                            p Folder
+                        li#show-options
+                            i(class="fas fa-cogs")
+                            p Show
+                            p Options
 
         section#gallery-drop-zone.gallery-images
             //- .gallery-images-zone
             each image in images
                 figure.gallery-image(data-id=image._id)
+                    .gallery-image-options.d-none
+                        i(class="fas fa-link")
+                        i.delete-image(class="fas fa-trash")
                     div
                         img(src=image.url alt='#{image.name}')
                     div
@@ -32,10 +52,21 @@ body
                             p= image.size/1000 + ' kb'
                             p= image.width + ' x ' + image.height
 
-    //- 
-        form(action="gallery" method="POST" enctype="multipart/form-data") 
+        form#form-upload-image.form-upload.form-upload-none(action="gallery" method="POST" enctype="multipart/form-data") 
             //- input(type="text" name="name")
             //- input(type="number" name="age")
-            input(type="file" name="file")
-            input(type="submit")
+            input.form-upload-file(type="file" name="file")
+            input.btn.gallery-nav-btn.form-upload-btn(type="submit")
+
+        form#form-upload-folder.form-upload.form-upload-none(action="gallery" method="POST" enctype="multipart/form-data") 
+            .form-group 
+                label.form-auth__label(for="email") Name Folder
+                input.form-auth__input(type="email" name="email" placeholder="Type the name of the folder")
+            //- input(type="number" name="age")
+            //- input.form-upload-file(type="file" name="file")
+            input.btn.gallery-nav-btn.form-upload-btn(type="submit" value="Create Folder")
+
+    #notification.notification
+        p 
+
     script(src="/js/gallery.js" type="module")

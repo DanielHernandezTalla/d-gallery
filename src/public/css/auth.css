@@ -43,38 +43,6 @@
 }
 
 /* ================================================================= */
-/* Nav authentication */
-/* ================================================================= */
-.gallery-nav {
-    padding: 16px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 16px;
-    font-size: 1.6rem;
-    color: var(--main-color);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.gallery-nav i:hover{
-    transform: scale(1.1);
-}
-
-.gallery-nav__search{
-    padding: 0 10px;
-    border-bottom: 1px solid var(--main-color);
-}
-
-.gallery-nav__search-input{
-    border: none;
-    outline: none;
-    padding: 5px;
-    color: var(--gray);
-    font-weight: 500;
-}
-
-/* ================================================================= */
 /* Form authentication */
 /* ================================================================= */
 .form-auth{
