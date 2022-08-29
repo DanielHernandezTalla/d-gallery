@@ -24,9 +24,15 @@ async function progressUpload(item){
         let res = await data.json()
         
         // console.log(res)
+        // console.log(res.error)
+        if(res.error)
+            notification(res.error, true)
+        else
+            notification("Agregado correctamente!")
         
         // Reload info
         reloadData()
+
 
     } catch (e) {
         console.error(e)
@@ -60,8 +66,12 @@ dragZone.addEventListener('drop', e=>{
 // ===============================================
 document.addEventListener('submit', e=>{
 
-    if(e.target.matches('.gallery-nav__search'))
-        e.preventDefault()
+    e.preventDefault()
+    if(e.target.matches('#form-upload-image')){
+        e.target.classList.add('form-upload-none')
+        progressUpload(e.target.file.files[0])
+        e.target.reset()
+    }
     // if(e.target.matches('#gallery-nav-form')){
 
     //     let search = e.target.search.value
@@ -73,16 +83,10 @@ document.addEventListener('submit', e=>{
 document.addEventListener('click', e=>{
 
     if(e.target.matches('#show-options') || e.target.matches('#show-options *')){
+        
+        switchOptions()
+
         let text = document.querySelector('#show-options').querySelector('p')
-        const gallery = document.querySelectorAll('.gallery-image')
-
-        gallery.forEach(item => {
-            if(text.textContent === "Show")
-                item.querySelector('.gallery-image-options').classList.remove('d-none')
-            else
-                item.querySelector('.gallery-image-options').classList.add('d-none')
-        })
-
         text.textContent = text.textContent ==="Show"? "Hide": "Show"
     }
 
@@ -117,7 +121,7 @@ document.addEventListener('click', e=>{
 
     if(e.target.matches('.delete-image')){
         let id = e.target.parentNode.parentNode.dataset.id
-        console.log(id)
+        // console.log(id)
 
         let api = new ApiFetch()
 
@@ -199,7 +203,7 @@ function loadImages(res){
         figure.dataset.id = item._id
 
         figure.innerHTML = `
-            <div class="gallery-image-options ">
+            <div class="gallery-image-options d-none">
                 <i class="fas fa-link"></i>
                 <i class="delete-image fas fa-trash"></i>
             </div>
@@ -217,11 +221,40 @@ function loadImages(res){
         `
         
         zone.appendChild(figure)
+
+        switchOptions(true)
     })
 }
 
-function notification(value){
+function switchOptions(isSearch) {
+    let text = document.querySelector('#show-options').querySelector('p')
+    const gallery = document.querySelectorAll('.gallery-image')
+
+    gallery.forEach(item => {
+        let options = item.querySelector('.gallery-image-options')
+
+        if(isSearch){
+            if(text.textContent !== "Show")
+                options.classList.remove('d-none')
+            else
+                options.classList.add('d-none')
+        }
+        else{
+            if(text.textContent === "Show")
+                options.classList.remove('d-none')
+            else
+                options.classList.add('d-none')
+        }
+    })
+}
+
+function notification(value, isError = false) {
     let notification = document.getElementById('notification')
+
+    if(isError)
+        notification.classList.add('bg-danger')
+    else 
+        notification.classList.remove('bg-danger')
 
     notification.querySelector('p').textContent = value
 

@@ -280,3 +280,7 @@
 .d-none{
     display: none;
 }
+
+.bg-danger{
+    background-color: rgb(167, 9, 9);
+}

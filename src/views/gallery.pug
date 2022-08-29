@@ -27,7 +27,7 @@ body
                         li#upload-image
                             i(class="fas fa-cloud-upload-alt") 
                             p Upload 
-                        li#upload-folder
+                        //- li#upload-folder
                             i(class="fas fa-folder-plus")
                             p New 
                             p Folder
@@ -52,7 +52,7 @@ body
                             p= image.size/1000 + ' kb'
                             p= image.width + ' x ' + image.height
 
-        form#form-upload-image.form-upload.form-upload-none(action="gallery" method="POST" enctype="multipart/form-data") 
+        form#form-upload-image.form-upload.form-upload-none(action="gallery" method="POST") 
             //- input(type="text" name="name")
             //- input(type="number" name="age")
             input.form-upload-file(type="file" name="file")
